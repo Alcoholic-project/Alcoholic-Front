@@ -5,12 +5,10 @@ import Login from './pages/Login';
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/join" element={<Join />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/join" element={<Join />} />
+    </Routes>
   );
 };
 
