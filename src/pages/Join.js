@@ -41,12 +41,38 @@ const JoinInput = styled.input`
 
 const InputName = styled.p`
   display: inline-block;
-  font-size: 20px;
 `;
 
-const CheckBtn = styled.button``;
+const CheckBtn = styled.button`
+  width: 80px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  margin-top: 35px;
+  font-size: 15px;
+  cursor: pointer;
+  transition-duration: 0.1s;
+  :hover {
+    background-color: #f1ddfe;
+  }
+`;
 
-const SubmitBtn = styled.button``;
+const SubmitBtn = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 368px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  margin-top: 35px;
+  font-size: 20px;
+  cursor: pointer;
+  transition-duration: 0.1s;
+  :hover {
+    background-color: #f1ddfe;
+  }
+`;
 
 const NoIcon = styled(BsX)`
   color: #e74c3c;
@@ -98,7 +124,7 @@ const Join = () => {
               <CheckBtn>중복확인</CheckBtn>
               <JoinInput name="pw" onChange={onChangePw} />
               <JoinInput onChange={checkSamePw} />
-              {checkPw ? <YesIcon /> : <NoIcon />}
+              {checkPw ? <YesIcon size={30} /> : <NoIcon size={30} />}
               <JoinInput name="name" onChange={onChangeInput} />
               <CheckBtn>중복확인</CheckBtn>
             </InputBoxes>
@@ -114,4 +140,3 @@ const Join = () => {
 };
 
 export default Join;
-
