@@ -113,13 +113,13 @@ const Join = () => {
       <Container>
         <OuterBox>
           <InnerBox>
-            <InputBoxes className="inputName">
+            <InputBoxes>
               <InputName>아이디</InputName>
               <InputName>비밀번호</InputName>
               <InputName>비밀번호 확인</InputName>
               <InputName>닉네임</InputName>
             </InputBoxes>
-            <InputBoxes className="joinInput">
+            <InputBoxes>
               <JoinInput name="id" onChange={onChangeInput} />
               <CheckBtn>중복확인</CheckBtn>
               <JoinInput name="pw" onChange={onChangePw} />
