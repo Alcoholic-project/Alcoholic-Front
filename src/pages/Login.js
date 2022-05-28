@@ -75,7 +75,12 @@ const Login = () => {
     <Container>
       <OuterBox>
         <LoginInput value={input.id} name="id" onChange={onChangeInput} />
-        <LoginInput value={input.pw} name="pw" onChange={onChangeInput} />
+        <LoginInput
+          value={input.pw}
+          name="pw"
+          onChange={onChangeInput}
+          type={'password'}
+        />
         <SubmitBtn onClick={onClickSubmit}>LOGIN</SubmitBtn>
         <GoJoin>
           <Link
