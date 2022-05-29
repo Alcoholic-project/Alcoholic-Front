@@ -10,6 +10,10 @@ const Container = styled.div`
   height: 100vh;
 `;
 
+const Title = styled.p`
+  font-size: 23px;
+`;
+
 const OuterBox = styled.div`
   display: flex;
   width: 700px;
@@ -23,11 +27,13 @@ const OuterBox = styled.div`
 
 const InnerBox = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
 `;
 
-const InputBoxes = styled.div``;
+const InputBoxes = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 const JoinInput = styled.input`
   width: 350px;
@@ -37,10 +43,12 @@ const JoinInput = styled.input`
   border: 2px solid #767676;
   font-size: 20px;
   padding-left: 10px;
+  margin-right: 20px;
 `;
 
 const InputName = styled.p`
   display: inline-block;
+  font-size: 18px;
 `;
 
 const CheckBtn = styled.button`
@@ -48,7 +56,6 @@ const CheckBtn = styled.button`
   height: 40px;
   border-radius: 5px;
   border: none;
-  margin-top: 35px;
   font-size: 15px;
   cursor: pointer;
   transition-duration: 0.1s;
@@ -111,27 +118,47 @@ const Join = () => {
   return (
     <>
       <Container>
+        <Title>SIGN UP</Title>
         <OuterBox>
           <InnerBox>
             <InputBoxes>
               <InputName>아이디</InputName>
-              <InputName>비밀번호</InputName>
-              <InputName>비밀번호 확인</InputName>
-              <InputName>닉네임</InputName>
-            </InputBoxes>
-            <InputBoxes>
-              <JoinInput name="id" onChange={onChangeInput} />
+              <JoinInput
+                name="id"
+                onChange={onChangeInput}
+                style={{ marginLeft: 75 }}
+              />
               <CheckBtn>중복확인</CheckBtn>
-              <JoinInput name="pw" onChange={onChangePw} />
-              <JoinInput onChange={checkSamePw} />
+            </InputBoxes>
+
+            <InputBoxes>
+              <InputName>비밀번호</InputName>
+              <JoinInput
+                name="pw"
+                onChange={onChangePw}
+                style={{ marginLeft: 59 }}
+              />
+            </InputBoxes>
+
+            <InputBoxes>
+              <InputName>비밀번호 확인</InputName>
+              <JoinInput onChange={checkSamePw} style={{ marginLeft: 18 }} />
               {checkPw ? <YesIcon size={30} /> : <NoIcon size={30} />}
-              <JoinInput name="name" onChange={onChangeInput} />
+            </InputBoxes>
+
+            <InputBoxes>
+              <InputName>닉네임</InputName>
+              <JoinInput
+                name="name"
+                onChange={onChangeInput}
+                style={{ marginLeft: 75 }}
+              />
               <CheckBtn>중복확인</CheckBtn>
             </InputBoxes>
           </InnerBox>
 
           <InnerBox>
-            <SubmitBtn onClick={onClickSubmit}>확인</SubmitBtn>
+            <SubmitBtn onClick={onClickSubmit}>SUBMIT</SubmitBtn>
           </InnerBox>
         </OuterBox>
       </Container>

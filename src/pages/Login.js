@@ -12,6 +12,10 @@ const Container = styled.div`
   height: 100vh;
 `;
 
+const Title = styled.p`
+  font-size: 23px;
+`;
+
 const OuterBox = styled.div`
   display: flex;
   justify-content: center;
@@ -73,6 +77,7 @@ const Login = () => {
 
   return (
     <Container>
+      <Title>LOGIN</Title>
       <OuterBox>
         <LoginInput value={input.id} name="id" onChange={onChangeInput} />
         <LoginInput
@@ -87,7 +92,7 @@ const Login = () => {
             to="/join"
             style={{ textDecoration: 'inherit', color: 'inherit' }}
           >
-            회원가입
+            SIGN UP
           </Link>
         </GoJoin>
       </OuterBox>
