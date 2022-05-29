@@ -40,7 +40,7 @@ const JoinInput = styled.input`
 `;
 
 const InputName = styled.p`
-  // display: inline-block;
+  display: inline-block;
 `;
 
 const CheckBtn = styled.button`
