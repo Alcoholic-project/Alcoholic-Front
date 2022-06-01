@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { api } from '../constants/server';
 
 // #8675E4
 
@@ -62,8 +64,31 @@ const GoJoin = styled.p`
 `;
 
 const Login = () => {
+  const focusInputEmail = useRef();
+  const focusInputPw = useRef();
+
+  const onClickSubmit = () => {
+    if (input.email === '') {
+      focusInputEmail.current.focus();
+    } else if (input.pw === '') {
+      focusInputPw.current.focus();
+    } else {
+      axios
+        .post(`${api}/login`, {
+          email: input.email,
+          password: input.pw,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  };
+
   const [input, setInput] = useState({
-    id: '',
+    email: '',
     pw: '',
   });
 
@@ -71,20 +96,24 @@ const Login = () => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const onClickSubmit = () => {
-    console.log(input);
-  };
-
   return (
     <Container>
       <Title>LOGIN</Title>
       <OuterBox>
-        <LoginInput value={input.id} name="id" onChange={onChangeInput} />
+        <LoginInput
+          value={input.email}
+          name="email"
+          onChange={onChangeInput}
+          placeholder="Email"
+          ref={focusInputEmail}
+        />
         <LoginInput
           value={input.pw}
           name="pw"
           onChange={onChangeInput}
           type={'password'}
+          placeholder="Password"
+          ref={focusInputPw}
         />
         <SubmitBtn onClick={onClickSubmit}>LOGIN</SubmitBtn>
         <GoJoin>

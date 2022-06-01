@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { BsX, BsCheck2All } from 'react-icons/bs';
+import axios from 'axios';
+import { api } from '../constants/server';
 
 const Container = styled.div`
   display: flex;
@@ -91,7 +93,8 @@ const YesIcon = styled(BsCheck2All)`
 
 const Join = () => {
   const [input, setInput] = useState({
-    id: '',
+    email: '',
+    emailEnd: '',
     pw: '',
     name: '',
   });
@@ -111,8 +114,43 @@ const Join = () => {
     e.target.value === input.pw ? setCheckPw(true) : setCheckPw(false);
   };
 
-  const onClickSubmit = (e) => {
+  const onClickSubmit = () => {
     console.log(input);
+    // if (input.email === '') {
+    //   focusInputEmail.current.focus();
+    // } else if (input.pw === '') {
+    //   focusInputPw.current.focus();
+    // }
+    // else
+    //{
+
+    // 모든 칸이 다 채워져있는지
+    // 중복확인 버튼 두 개 다 눌렀는지
+    axios
+      .post(`${api}/user/join`, {
+        email: `${input.email}@${input.emailEnd}`,
+        nickname: input.name,
+        password: input.pw,
+        passwordCorrect: '',
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    // }
+  };
+
+  const onClickEmailCheck = () => {
+    axios
+      .post(`${api}/user/email-check?email=${input.email}@${input.emailEnd}`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   return (
@@ -122,13 +160,19 @@ const Join = () => {
         <OuterBox>
           <InnerBox>
             <InputBoxes>
-              <InputName>아이디</InputName>
+              <InputName>이메일 주소</InputName>
               <JoinInput
-                name="id"
+                name="email"
                 onChange={onChangeInput}
-                style={{ marginLeft: 75 }}
+                style={{ marginLeft: 37, width: '200px', marginRight: '8px' }}
               />
-              <CheckBtn>중복확인</CheckBtn>
+              <p style={{ fontSize: '18px' }}>@</p>
+              <JoinInput
+                name="emailEnd"
+                onChange={onChangeInput}
+                style={{ width: '100px', marginLeft: '8px' }}
+              />
+              <CheckBtn onClick={onClickEmailCheck}>중복확인</CheckBtn>
             </InputBoxes>
 
             <InputBoxes>
@@ -151,7 +195,7 @@ const Join = () => {
               <JoinInput
                 name="name"
                 onChange={onChangeInput}
-                style={{ marginLeft: 75 }}
+                style={{ marginLeft: 76 }}
               />
               <CheckBtn>중복확인</CheckBtn>
             </InputBoxes>
