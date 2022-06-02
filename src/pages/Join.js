@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { BsX, BsCheck2All } from 'react-icons/bs';
 import axios from 'axios';
-import { api } from '../constants/server';
 
 const Container = styled.div`
   display: flex;
@@ -92,11 +91,14 @@ const YesIcon = styled(BsCheck2All)`
 `;
 
 const Join = () => {
+  const focusInputEmail = useRef();
+
   const [input, setInput] = useState({
     email: '',
     emailEnd: '',
     pw: '',
     name: '',
+    emailCheck: false,
   });
 
   const [checkPw, setCheckPw] = useState(false);
@@ -127,7 +129,7 @@ const Join = () => {
     // 모든 칸이 다 채워져있는지
     // 중복확인 버튼 두 개 다 눌렀는지
     axios
-      .post(`${api}/user/join`, {
+      .post(`/user/join`, {
         email: `${input.email}@${input.emailEnd}`,
         nickname: input.name,
         password: input.pw,
@@ -144,9 +146,13 @@ const Join = () => {
 
   const onClickEmailCheck = () => {
     axios
-      .post(`${api}/user/email-check?email=${input.email}@${input.emailEnd}`)
+      .post(`/user/email-check?email=${input.email}@${input.emailEnd}`)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
+        setInput({ ...input, emailCheck: res.data });
+        if (res.data === false) {
+          focusInputEmail.current.focus(); // 나중에 테스트해봐야 함
+        }
       })
       .catch((e) => {
         console.log(e);
@@ -165,14 +171,20 @@ const Join = () => {
                 name="email"
                 onChange={onChangeInput}
                 style={{ marginLeft: 37, width: '200px', marginRight: '8px' }}
+                ref={focusInputEmail}
               />
               <p style={{ fontSize: '18px' }}>@</p>
               <JoinInput
                 name="emailEnd"
                 onChange={onChangeInput}
                 style={{ width: '100px', marginLeft: '8px' }}
+                ref={focusInputEmail}
               />
-              <CheckBtn onClick={onClickEmailCheck}>중복확인</CheckBtn>
+              {input.emailCheck ? (
+                <YesIcon size={30} />
+              ) : (
+                <CheckBtn onClick={onClickEmailCheck}>중복확인</CheckBtn>
+              )}
             </InputBoxes>
 
             <InputBoxes>

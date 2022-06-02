@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { api } from '../constants/server';
 
 // #8675E4
 
