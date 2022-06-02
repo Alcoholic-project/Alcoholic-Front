@@ -74,9 +74,10 @@ const Login = () => {
       focusInputPw.current.focus();
     } else {
       axios
-        .post(`${api}/login`, {
+        .post(`/login`, {
           email: input.email,
           password: input.pw,
+          withCredentials: true,
         })
         .then((res) => {
           console.log(res);
