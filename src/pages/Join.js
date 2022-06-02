@@ -92,13 +92,19 @@ const YesIcon = styled(BsCheck2All)`
 
 const Join = () => {
   const focusInputEmail = useRef();
+  const focusInputEmailEnd = useRef();
+  const focusInputPw = useRef();
+  const focusInputPwCheck = useRef();
+  const focusInputName = useRef();
 
   const [input, setInput] = useState({
     email: '',
     emailEnd: '',
     pw: '',
+    pwCheck: '',
     name: '',
     emailCheck: false,
+    nameCheck: false,
   });
 
   const [checkPw, setCheckPw] = useState(false);
@@ -114,49 +120,67 @@ const Join = () => {
 
   const checkSamePw = (e) => {
     e.target.value === input.pw ? setCheckPw(true) : setCheckPw(false);
+    setInput({ ...input, [e.target.name]: e.target.value });
   };
 
   const onClickSubmit = () => {
-    console.log(input);
-    // if (input.email === '') {
-    //   focusInputEmail.current.focus();
-    // } else if (input.pw === '') {
-    //   focusInputPw.current.focus();
-    // }
-    // else
-    //{
-
-    // 모든 칸이 다 채워져있는지
-    // 중복확인 버튼 두 개 다 눌렀는지
-    axios
-      .post(`/user/join`, {
-        email: `${input.email}@${input.emailEnd}`,
-        nickname: input.name,
-        password: input.pw,
-        passwordCorrect: '',
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-    // }
+    if (input.emailCheck === false) focusInputEmail.current.focus();
+    else if (input.pw.length < 5) focusInputPw.current.focus();
+    else if (checkPw === false) focusInputPwCheck.current.focus();
+    else if (input.nameCheck === false) focusInputName.current.focus();
+    else {
+      axios
+        .post(`/user/join`, {
+          email: `${input.email}@${input.emailEnd}`,
+          nickname: input.name,
+          password: input.pw,
+          passwordCorrect: input.pwCheck,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      // }
+    }
   };
 
   const onClickEmailCheck = () => {
-    axios
-      .post(`/user/email-check?email=${input.email}@${input.emailEnd}`)
-      .then((res) => {
-        console.log(res.data);
-        setInput({ ...input, emailCheck: res.data });
-        if (res.data === false) {
-          focusInputEmail.current.focus(); // 나중에 테스트해봐야 함
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    if (input.email.length < 2) focusInputEmail.current.focus();
+    else if (input.emailEnd.length < 2) focusInputEmailEnd.current.focus();
+    else {
+      axios
+        .post(`/user/email-check?email=${input.email}@${input.emailEnd}`)
+        .then((res) => {
+          console.log(res.data);
+          setInput({ ...input, emailCheck: res.data });
+          if (res.data === false) {
+            focusInputEmail.current.focus();
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  };
+
+  const onClickNamelCheck = () => {
+    if (input.name.length < 1) focusInputName.current.focus();
+    else {
+      axios
+        .post(`/user/nickname-check?nickname=${input.name}`)
+        .then((res) => {
+          console.log(res.data);
+          setInput({ ...input, nameCheck: res.data });
+          if (res.data === false) {
+            focusInputName.current.focus();
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
   };
 
   return (
@@ -167,19 +191,37 @@ const Join = () => {
           <InnerBox>
             <InputBoxes>
               <InputName>이메일 주소</InputName>
-              <JoinInput
-                name="email"
-                onChange={onChangeInput}
-                style={{ marginLeft: 37, width: '200px', marginRight: '8px' }}
-                ref={focusInputEmail}
-              />
+              {input.emailCheck ? (
+                <JoinInput
+                  name="email"
+                  style={{ marginLeft: 37, width: '200px', marginRight: '8px' }}
+                  disabled
+                />
+              ) : (
+                <JoinInput
+                  name="email"
+                  onChange={onChangeInput}
+                  style={{ marginLeft: 37, width: '200px', marginRight: '8px' }}
+                  ref={focusInputEmail}
+                />
+              )}
+
               <p style={{ fontSize: '18px' }}>@</p>
-              <JoinInput
-                name="emailEnd"
-                onChange={onChangeInput}
-                style={{ width: '100px', marginLeft: '8px' }}
-                ref={focusInputEmail}
-              />
+              {input.emailCheck ? (
+                <JoinInput
+                  name="emailEnd"
+                  style={{ width: '100px', marginLeft: '8px' }}
+                  disabled
+                />
+              ) : (
+                <JoinInput
+                  name="emailEnd"
+                  onChange={onChangeInput}
+                  style={{ width: '100px', marginLeft: '8px' }}
+                  ref={focusInputEmailEnd}
+                />
+              )}
+
               {input.emailCheck ? (
                 <YesIcon size={30} />
               ) : (
@@ -193,23 +235,48 @@ const Join = () => {
                 name="pw"
                 onChange={onChangePw}
                 style={{ marginLeft: 59 }}
+                placeholder="5-12자"
+                maxLength="12"
+                ref={focusInputPw}
               />
             </InputBoxes>
 
             <InputBoxes>
               <InputName>비밀번호 확인</InputName>
-              <JoinInput onChange={checkSamePw} style={{ marginLeft: 18 }} />
+              <JoinInput
+                name="pwCheck"
+                onChange={checkSamePw}
+                style={{ marginLeft: 18 }}
+                ref={focusInputPwCheck}
+              />
               {checkPw ? <YesIcon size={30} /> : <NoIcon size={30} />}
             </InputBoxes>
 
             <InputBoxes>
               <InputName>닉네임</InputName>
-              <JoinInput
-                name="name"
-                onChange={onChangeInput}
-                style={{ marginLeft: 76 }}
-              />
-              <CheckBtn>중복확인</CheckBtn>
+              {input.nameCheck ? (
+                <JoinInput
+                  name="name"
+                  style={{ marginLeft: 76 }}
+                  placeholder="10자 이내"
+                  maxLength="10"
+                  disabled
+                />
+              ) : (
+                <JoinInput
+                  name="name"
+                  onChange={onChangeInput}
+                  style={{ marginLeft: 76 }}
+                  placeholder="10자 이내"
+                  maxLength="10"
+                  ref={focusInputName}
+                />
+              )}
+              {input.nameCheck ? (
+                <YesIcon size={30} />
+              ) : (
+                <CheckBtn onClick={onClickNamelCheck}>중복확인</CheckBtn>
+              )}
             </InputBoxes>
           </InnerBox>
 
