@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 // #8675E4
@@ -66,23 +66,27 @@ const Login = () => {
   const focusInputEmail = useRef();
   const focusInputPw = useRef();
 
+  const navigate = useNavigate();
+
   const onClickSubmit = () => {
     if (input.email === '') {
       focusInputEmail.current.focus();
     } else if (input.pw === '') {
       focusInputPw.current.focus();
     } else {
+      console.log(input.email, input.pw);
       axios
         .post(`/login`, {
           email: input.email,
           password: input.pw,
-          withCredentials: true,
         })
         .then((res) => {
           console.log(res);
+          // navigate('/'); // 홈으로
         })
         .catch((e) => {
           console.log(e);
+          focusInputEmail.current.focus();
         });
     }
   };
