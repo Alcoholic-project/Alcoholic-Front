@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { BsX, BsCheck2All } from 'react-icons/bs';
 import axios from 'axios';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -97,6 +98,8 @@ const Join = () => {
   const focusInputPwCheck = useRef();
   const focusInputName = useRef();
 
+  const navigate = useNavigate();
+
   const [input, setInput] = useState({
     email: '',
     emailEnd: '',
@@ -138,11 +141,12 @@ const Join = () => {
         })
         .then((res) => {
           console.log(res);
+          alert('회원가입이 완료되었습니다.');
+          navigate('/');
         })
         .catch((e) => {
           console.log(e);
         });
-      // }
     }
   };
 
@@ -153,7 +157,6 @@ const Join = () => {
       axios
         .post(`/user/email-check?email=${input.email}@${input.emailEnd}`)
         .then((res) => {
-          console.log(res.data);
           setInput({ ...input, emailCheck: res.data });
           if (res.data === false) {
             focusInputEmail.current.focus();
@@ -171,7 +174,6 @@ const Join = () => {
       axios
         .post(`/user/nickname-check?nickname=${input.name}`)
         .then((res) => {
-          console.log(res.data);
           setInput({ ...input, nameCheck: res.data });
           if (res.data === false) {
             focusInputName.current.focus();
