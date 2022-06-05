@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { BsX, BsCheck2All } from 'react-icons/bs';
 import axios from 'axios';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -236,6 +236,7 @@ const Join = () => {
               <JoinInput
                 name="pw"
                 onChange={onChangePw}
+                type="password"
                 style={{ marginLeft: 59 }}
                 placeholder="5-12자"
                 maxLength="12"
@@ -248,6 +249,7 @@ const Join = () => {
               <JoinInput
                 name="pwCheck"
                 onChange={checkSamePw}
+                type="password"
                 style={{ marginLeft: 18 }}
                 ref={focusInputPwCheck}
               />
