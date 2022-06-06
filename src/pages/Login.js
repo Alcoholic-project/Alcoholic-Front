@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import Header from '../components/Header';
 
 // #8675E4
 
@@ -63,6 +64,7 @@ const GoJoin = styled.p`
 `;
 
 const Login = () => {
+  console.log(window.sessionStorage.getItem('loginName'));
   const focusInputEmail = useRef();
   const focusInputPw = useRef();
 
@@ -82,6 +84,7 @@ const Login = () => {
         })
         .then((res) => {
           console.log(res);
+          window.sessionStorage.setItem('loginName', 'nickName'); // nickname 수정하기
           navigate('/');
         })
         .catch((e) => {
@@ -102,6 +105,7 @@ const Login = () => {
 
   return (
     <Container>
+      <Header />
       <Title>LOGIN</Title>
       <OuterBox>
         <LoginInput
