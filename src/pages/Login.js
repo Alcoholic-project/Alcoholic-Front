@@ -82,7 +82,7 @@ const Login = () => {
         })
         .then((res) => {
           console.log(res);
-          // navigate('/'); // 홈으로
+          navigate('/');
         })
         .catch((e) => {
           console.log(e);
