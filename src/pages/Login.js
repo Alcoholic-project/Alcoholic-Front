@@ -84,7 +84,7 @@ const Login = () => {
         })
         .then((res) => {
           console.log(res);
-          window.sessionStorage.setItem('loginName', 'nickName'); // nickname 수정하기
+          window.sessionStorage.setItem('loginName', res.data);
           navigate('/');
         })
         .catch((e) => {

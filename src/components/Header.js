@@ -26,26 +26,35 @@ const LogoutIcon = styled(AiOutlineLogout)``;
 
 const MyInfo = styled.button``;
 
-// 찜, 내정보, 로그아웃
 const Header = () => {
   const navigate = useNavigate();
   const isLogin = window.sessionStorage.getItem('loginName');
+  console.log(isLogin);
 
   const onClickLogout = () => {
-    window.sessionStorage.setItem('loginName', 'null');
+    window.sessionStorage.removeItem('loginName');
     navigate('/login');
+  };
+
+  const onClickMyInfo = () => {
+    // 로그인 돼있을 때랑 안돼있을 때 다르게 하기
+    navigate('/myinfo');
+  };
+
+  const onClickHeart = () => {
+    // 로그인 돼있을 때랑 안돼있을 때 다르게 하기
   };
 
   return (
     <Container>
       <Logo>Alcoholic</Logo>
-      <HeartIcon />
+      <HeartIcon onClick={onClickHeart} />
       {isLogin ? (
         <LogoutIcon onClick={onClickLogout} />
       ) : (
         <LoginIcon onClick={() => navigate('/login')} />
       )}
-      <MyInfo onClick={() => navigate('/myinfo')}>내 정보</MyInfo>
+      <MyInfo onClick={onClickMyInfo}>내 정보</MyInfo>
     </Container>
   );
 };
