@@ -10,24 +10,49 @@ import { useState } from 'react';
 // 5. 설명 (특이사항)
 // 6. 사진
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const RecipeNameInput = styled.input``;
+
+const DrinkBox = styled.div``;
 
 const DrinkNameInput = styled.input``;
 
 const DrinkAmountInput = styled.input``;
 
+const DrinkPlusBtn = styled.button``;
+
 const Write = () => {
   const [input, setInput] = useState({
     recipeName: '',
-    whatDrink: '',
     price: '',
     explaination: '',
     photo: '',
   });
 
+  const [drink, setDrink] = useState([]);
+
+  const onClickDrinkPlus = () => {};
+
   return (
     <>
       <Header />
+      <Container>
+        <RecipeNameInput />
+        {drink.map((num) => (
+          <DrinkBox key={num}>
+            <DrinkNameInput />
+            <DrinkAmountInput />
+          </DrinkBox>
+        ))}
+
+        <DrinkPlusBtn onClick={onClickDrinkPlus}>추가</DrinkPlusBtn>
+        {/* 동그라미 플러스 버튼으로 넣기  */}
+        {/* 빼기 버튼도 넣기  */}
+      </Container>
     </>
   );
 };
