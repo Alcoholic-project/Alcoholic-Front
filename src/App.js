@@ -4,6 +4,8 @@ import Join from './pages/Join';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import MyInfo from './pages/MyInfo';
+import MyBasket from './pages/MyBasket';
+import Write from './pages/Write';
 
 const App = () => {
   return (
@@ -12,6 +14,8 @@ const App = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/join" element={<Join />} />
       <Route path="/myinfo" element={<MyInfo />} />
+      <Route path="/mybasket" element={<MyBasket />} />
+      <Route path="/write" element={<Write />} />
     </Routes>
   );
 };

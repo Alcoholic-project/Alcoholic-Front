@@ -104,36 +104,38 @@ const Login = () => {
   };
 
   return (
-    <Container>
+    <>
       <Header />
-      <Title>LOGIN</Title>
-      <OuterBox>
-        <LoginInput
-          value={input.email}
-          name="email"
-          onChange={onChangeInput}
-          placeholder="Email"
-          ref={focusInputEmail}
-        />
-        <LoginInput
-          value={input.pw}
-          name="pw"
-          onChange={onChangeInput}
-          type={'password'}
-          placeholder="Password"
-          ref={focusInputPw}
-        />
-        <SubmitBtn onClick={onClickSubmit}>LOGIN</SubmitBtn>
-        <GoJoin>
-          <Link
-            to="/join"
-            style={{ textDecoration: 'inherit', color: 'inherit' }}
-          >
-            SIGN UP
-          </Link>
-        </GoJoin>
-      </OuterBox>
-    </Container>
+      <Container>
+        <Title>LOGIN</Title>
+        <OuterBox>
+          <LoginInput
+            value={input.email}
+            name="email"
+            onChange={onChangeInput}
+            placeholder="Email"
+            ref={focusInputEmail}
+          />
+          <LoginInput
+            value={input.pw}
+            name="pw"
+            onChange={onChangeInput}
+            type={'password'}
+            placeholder="Password"
+            ref={focusInputPw}
+          />
+          <SubmitBtn onClick={onClickSubmit}>LOGIN</SubmitBtn>
+          <GoJoin>
+            <Link
+              to="/join"
+              style={{ textDecoration: 'inherit', color: 'inherit' }}
+            >
+              SIGN UP
+            </Link>
+          </GoJoin>
+        </OuterBox>
+      </Container>
+    </>
   );
 };
 

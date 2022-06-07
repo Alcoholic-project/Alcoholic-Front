@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { BsX, BsCheck2All } from 'react-icons/bs';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
 
 const Container = styled.div`
   display: flex;
@@ -187,6 +188,7 @@ const Join = () => {
 
   return (
     <>
+      <Header />
       <Container>
         <Title>SIGN UP</Title>
         <OuterBox>

@@ -16,15 +16,24 @@ const Container = styled.div`
 
 const Logo = styled.p`
   color: black;
+  cursor: pointer;
 `;
 
-const HeartIcon = styled(AiOutlineHeart)``;
+const HeartIcon = styled(AiOutlineHeart)`
+  cursor: pointer;
+`;
 
-const LoginIcon = styled(AiOutlineLogin)``;
+const LoginIcon = styled(AiOutlineLogin)`
+  cursor: pointer;
+`;
 
-const LogoutIcon = styled(AiOutlineLogout)``;
+const LogoutIcon = styled(AiOutlineLogout)`
+  cursor: pointer;
+`;
 
-const MyInfo = styled.button``;
+const MyInfo = styled.button`
+  cursor: pointer;
+`;
 
 const Header = () => {
   const navigate = useNavigate();
@@ -43,11 +52,12 @@ const Header = () => {
 
   const onClickHeart = () => {
     // 로그인 돼있을 때랑 안돼있을 때 다르게 하기
+    navigate('/mybasket');
   };
 
   return (
     <Container>
-      <Logo>Alcoholic</Logo>
+      <Logo onClick={() => navigate('/')}>Alcoholic</Logo>
       <HeartIcon onClick={onClickHeart} />
       {isLogin ? (
         <LogoutIcon onClick={onClickLogout} />

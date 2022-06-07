@@ -1,6 +1,6 @@
 import Header from '../components/Header';
 
-const MyInfo = () => {
+const MyBasket = () => {
   return (
     <>
       <Header />
@@ -8,4 +8,4 @@ const MyInfo = () => {
   );
 };
 
-export default MyInfo;
+export default MyBasket;
