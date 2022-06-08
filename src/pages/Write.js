@@ -1,7 +1,7 @@
 import Header from '../components/Header';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 // 1. 레시피 이름
 // 2. 술 종류
@@ -24,6 +24,10 @@ const DrinkNameInput = styled.input``;
 const DrinkAmountInput = styled.input``;
 
 const DrinkPlusBtn = styled.button``;
+
+const PriceSelect = styled.select``;
+
+const DescriptionInput = styled.textarea``;
 
 let num = 0;
 
@@ -68,6 +72,15 @@ const Write = () => {
 
         <DrinkPlusBtn onClick={onClickDrinkPlus}>추가</DrinkPlusBtn>
         {/* 동그라미 플러스 버튼으로 넣기  */}
+
+        <PriceSelect>
+          <option>10,000원 이하</option>
+          <option>10,000원 ~ 30,000원</option>
+          <option>30,000원 ~ 50,000원</option>
+          <option>50,000원 ~ 100,000원</option>
+          <option>100,000원 이상</option>
+        </PriceSelect>
+        <DescriptionInput maxLength="500" />
       </Container>
     </>
   );
