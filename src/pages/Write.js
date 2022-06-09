@@ -25,9 +25,13 @@ const DrinkAmountInput = styled.input``;
 
 const DrinkPlusBtn = styled.button``;
 
-const PriceSelect = styled.select``;
+const PriceInput = styled.input``;
 
 const DescriptionInput = styled.textarea``;
+
+const PhotoInput = styled.input``;
+
+const SubmitBtn = styled.button``;
 
 let num = 0;
 
@@ -35,13 +39,17 @@ const Write = () => {
   const [input, setInput] = useState({
     recipeName: '',
     price: '',
-    explaination: '',
+    description: '',
     photo: '',
   });
 
   const [drinkPlus, setDrinkPlus] = useState([0]);
   const [drinkName, setDrinkName] = useState({});
   const [drinkAmount, setDrinkAmount] = useState({});
+
+  const onChangeInput = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
 
   const onClickDrinkPlus = () => {
     if (num < 4) {
@@ -58,29 +66,52 @@ const Write = () => {
     setDrinkAmount({ ...drinkAmount, [e.target.name]: e.target.value });
   };
 
+  const onClickSubmit = () => {
+    console.log(input, drinkName, drinkAmount);
+  };
+
   return (
     <>
       <Header />
       <Container>
-        <RecipeNameInput />
+        <RecipeNameInput
+          onChange={onChangeInput}
+          value={input.recipeName}
+          name="recipeName"
+        />
         {drinkPlus.map((n) => (
           <DrinkBox key={n}>
-            <DrinkNameInput name={n} onChange={onChangeDrinkName} />
-            <DrinkAmountInput name={n} onChange={onChangeDrinkAmount} />
+            <DrinkNameInput
+              name={n}
+              onChange={onChangeDrinkName}
+              value={drinkName.n}
+            />
+            <DrinkAmountInput
+              name={n}
+              onChange={onChangeDrinkAmount}
+              value={drinkAmount.n}
+            />
           </DrinkBox>
         ))}
 
         <DrinkPlusBtn onClick={onClickDrinkPlus}>추가</DrinkPlusBtn>
         {/* 동그라미 플러스 버튼으로 넣기  */}
 
-        <PriceSelect>
-          <option>10,000원 이하</option>
-          <option>10,000원 ~ 30,000원</option>
-          <option>30,000원 ~ 50,000원</option>
-          <option>50,000원 ~ 100,000원</option>
-          <option>100,000원 이상</option>
-        </PriceSelect>
-        <DescriptionInput maxLength="500" />
+        <PriceInput onChange={onChangeInput} value={input.price} name="price" />
+        <DescriptionInput
+          maxLength="500"
+          onChange={onChangeInput}
+          value={input.description}
+          name="description"
+        />
+        <PhotoInput
+          type="file"
+          accept="image/*"
+          value={input.photo}
+          name="photo"
+          onChange={onChangeInput}
+        />
+        <SubmitBtn onClick={onClickSubmit}>완료</SubmitBtn>
       </Container>
     </>
   );
