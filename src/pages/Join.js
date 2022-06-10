@@ -188,7 +188,6 @@ const Join = () => {
 
   return (
     <>
-      <Header />
       <Container>
         <Title>SIGN UP</Title>
         <OuterBox>

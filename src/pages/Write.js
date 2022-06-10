@@ -72,7 +72,6 @@ const Write = () => {
 
   return (
     <>
-      <Header />
       <Container>
         <RecipeNameInput
           onChange={onChangeInput}

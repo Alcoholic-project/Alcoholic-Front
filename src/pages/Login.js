@@ -105,7 +105,6 @@ const Login = () => {
 
   return (
     <>
-      <Header />
       <Container>
         <Title>LOGIN</Title>
         <OuterBox>

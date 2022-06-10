@@ -1,11 +1,7 @@
 import Header from '../components/Header';
 
 const MyInfo = () => {
-  return (
-    <>
-      <Header />
-    </>
-  );
+  return <></>;
 };
 
 export default MyInfo;

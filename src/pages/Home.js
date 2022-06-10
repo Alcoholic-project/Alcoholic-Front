@@ -22,7 +22,6 @@ const Home = () => {
   };
   return (
     <>
-      <Header />
       <WriteBtn onClick={onClickWrite}>글쓰기</WriteBtn>
     </>
   );
